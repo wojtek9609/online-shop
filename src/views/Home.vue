@@ -1,28 +1,40 @@
 <template>
-  <div class="home" :key="products">
-    <ProductBox
-      v-for="product in products"
-      :key="product.id"
-      :product="product"
-    />
-    {{ products.length }}
-  </div>
+	<div class="home">
+		<ProductCategories v-model="activeCategories" />
+		<div class="productsList">
+			<ProductBox v-for="product in filteredProducts" :key="product.id" :product="product" />
+		</div>
+	</div>
 </template>
 
 <script>
-import { computed } from "vue";
-import ProductBox from "../components/ProductBox.vue";
-import store from "../store/index";
+import { computed, ref } from 'vue'
+import ProductBox from '../components/ProductBox.vue'
+import ProductCategories from '../components/ProductCategories.vue'
+import store from '../store/index'
 
 export default {
-  name: "Home",
-  components: {
-    ProductBox,
-  },
-  setup() {
-    store.dispatch("getProducts", 5);
-    const products = computed(() => store.getters.getProducts);
-    return { products };
-  },
-};
+	name: 'Home',
+	components: {
+		ProductBox,
+		ProductCategories
+	},
+	setup() {
+		const products = computed(() => store.getters.getProducts)
+		const filteredProducts = computed(() =>
+			activeCategories.value.length === 0 ? products.value : products.value.filter((product) => activeCategories.value.includes(product.category))
+		)
+
+		const activeCategories = ref([])
+
+		return { activeCategories, filteredProducts }
+	}
+}
 </script>
+
+<style lang="scss" scoped>
+.productsList {
+	width: 60%;
+	margin: auto;
+}
+</style>
