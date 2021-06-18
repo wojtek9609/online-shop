@@ -5,7 +5,7 @@ export default createStore({
 	state: {
 		products: [],
 		productCategories: [],
-		cartItems: [],
+		cartItems: []
 	},
 	mutations: {
 		UPDATE_PRODUCTS(state, payload) {
@@ -16,7 +16,7 @@ export default createStore({
 		},
 		UPDATE_CART_ITEMS(state, payload) {
 			state.cartItems = payload
-		},
+		}
 	},
 	actions: {
 		async getProducts({ commit }, limit) {
@@ -40,6 +40,9 @@ export default createStore({
 		getProducts: (state) => state.products,
 		getProductById: (state) => (id) => state.products.find((product) => product.id === id),
 		getProductCategories: (state) => state.productCategories,
-		getCartItems: (state) => state.cartItems
+		getCartItems: (state) => state.cartItems,
+		getTotalPrice: (state) => state.cartItems.reduce((total, item) => item.quantity * item.price + total, 0).toFixed(2)
 	}
 })
+
+

@@ -1,33 +1,18 @@
 <template>
 	<div class="product" @click="$router.push({ path: `/product/${product.id}` })">
-		<div class="productImage">
-			<img :src="product.image" alt="productImage" />
+		<img class="productImage" :src="product.image" alt="productImage" />
+		<div class="info">
+			<div class="title">{{ product.title }}</div>
+			<div class="price">{{ product.price }} $</div>
 		</div>
-		<div class="productInfo">
-			<div class="productTitle">{{ product.title }}</div>
-			<div class="productPrice">{{ product.price }} $</div>
-			<div class="productDescription">{{ product.description }}</div>
-		</div>
-		<button class="button" @click="addItemToCart(product)">Add to Cart</button>
 	</div>
 </template>
 
 <script>
-import store from '../store/index'
-import { computed } from 'vue'
-
 export default {
+	name: 'ProductBox',
 	props: {
 		product: Object
-	},
-	setup() {
-		const cartItems = computed(() => store.getters.getCartItems)
-
-		function addItemToCart(product) {
-			store.commit('UPDATE_CART_ITEMS', [...cartItems, product])
-		}
-
-		return { addItemToCart }
 	}
 }
 </script>
@@ -35,39 +20,33 @@ export default {
 <style lang="scss" scoped>
 .product {
 	display: flex;
+	justify-content: left;
 	padding: 1.5rem 1rem;
-	width: 100%;
 	border-bottom: 0.0625rem solid rgb(226, 226, 226);
-}
 
-.productTitle {
-	font-size: 1.15rem;
-	font-weight: bold;
-}
-
-.productPrice {
-	font-size: 1.15rem;
-	font-weight: bold;
-	margin: 0 0.5rem;
-}
-
-.productImage {
-	img {
-		width: 6rem;
-		height: 6rem;
+	&:hover {
+		cursor: pointer;
+		background-color: rgb(224, 224, 224);
 	}
 }
 
-.productInfo {
-	width: 60%;
-	margin: 0 2rem;
+.title {
+	font-size: 1.15rem;
+	font-weight: bold;
 }
 
-.productDescription {
-	width: 100%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	margin-top: 1rem;
+.price {
+	font-size: 1.15rem;
+	font-weight: bold;
+	margin: 0.75rem 0;
+}
+
+img.productImage {
+	width: 6rem;
+	height: 6rem;
+}
+
+.info {
+	margin-left: 2rem;
 }
 </style>

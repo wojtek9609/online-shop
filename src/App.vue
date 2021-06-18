@@ -51,5 +51,10 @@ export default {
 	padding: 0.5rem 0.75rem;
 	background: rgb(66, 184, 221);
 	border-color: transparent;
+
+	&:hover{
+		cursor: pointer;
+		opacity: 0.75;
+	}
 }
 </style>

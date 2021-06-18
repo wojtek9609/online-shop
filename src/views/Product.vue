@@ -1,13 +1,11 @@
 <template>
 	<div class="product" v-if="product">
-		<div class="productImage">
-			<img :src="product.image" alt="productImage" />
-		</div>
-		<div class="productTitle">{{ product.title }}</div>
-		<div class="productPrice">{{ product.price }} $</div>
+		<img class="productImage" :src="product.image" alt="productImage" />
+		<div class="title">{{ product.title }}</div>
+		<div class="price">{{ product.price }} $</div>
 		Description:
-		<div class="productDescription">{{ product.description }}</div>
-		<button class="button button--add" @click="addItemToCart(product)">Add to Cart</button>
+		<div class="description">{{ product.description }}</div>
+		<AddToCartButton :product="product" />
 	</div>
 </template>
 
@@ -15,18 +13,18 @@
 import store from '../store/index'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
+import AddToCartButton from '../components/AddToCartButton.vue'
 
 export default {
+	name: 'Product',
+	components: {
+		AddToCartButton
+	},
 	setup() {
 		const route = useRoute()
-		const cartItems = computed(() => store.getters.getCartItems)
 		const product = computed(() => store.getters.getProductById(parseInt(route.params.id)))
 
-		function addItemToCart(product) {
-			store.commit('UPDATE_CART_ITEMS', [...cartItems, product])
-		}
-
-		return { addItemToCart, product }
+		return { product }
 	}
 }
 </script>
@@ -39,27 +37,29 @@ export default {
 	border: 0.0625rem solid rgb(226, 226, 226);
 }
 
-.productImage {
-	img {
-		width: 10rem;
-		height: 10rem;
-	}
+img.productImage {
+	width: 10rem;
+	height: 10rem;
 }
 
-.productTitle {
+.title {
 	font-size: 1.75rem;
 	font-weight: bold;
 	margin: 2rem 0;
 }
 
-.productPrice {
+.price {
 	font-size: 2rem;
 	font-weight: bold;
 	margin-bottom: 2rem;
 }
 
-.productDescription {
+.description {
 	width: 100%;
+	margin: 0.75rem 0 1.5rem;
+}
+
+.button--add {
 	margin: 1rem 0;
 }
 </style>
