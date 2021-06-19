@@ -21,11 +21,10 @@ export default {
 	},
 	setup() {
 		const products = computed(() => store.getters.getProducts)
+		const activeCategories = ref([])
 		const filteredProducts = computed(() =>
 			activeCategories.value.length === 0 ? products.value : products.value.filter((product) => activeCategories.value.includes(product.category))
 		)
-
-		const activeCategories = ref([])
 
 		return { activeCategories, filteredProducts }
 	}

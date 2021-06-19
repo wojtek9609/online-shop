@@ -1,23 +1,24 @@
 <template>
 	<div class="product">
 		<img :src="product.image" alt="productImage" />
-		<div class="info">
+		<div class="wrapper">
 			<div class="title">{{ product.title }}</div>
-			<div class="price">{{ product.price }} $</div>
-
-			<div class="quantity">
-				<mdicon name="minus" @click="updateQuantity(product.quantity - 1)" />
-				{{ product.quantity }}
-				<mdicon name="plus" @click="updateQuantity(product.quantity + 1)" />
+			<div class="details">
+				<div class="price">{{ product.price }} $</div>
+				<div class="quantity">
+					<mdicon name="minus" size="18" @click="updateQuantity(product.quantity - 1)" />
+					{{ product.quantity }}
+					<mdicon name="plus" size="18" @click="updateQuantity(product.quantity + 1)" />
+				</div>
+				<div class="totalPrice">{{ (product.price * product.quantity).toFixed(2) }} $</div>
+				<button class="button button--red" @click="deleteItem">Delete</button>
 			</div>
-			<div class="totalPrice">{{ (product.price * product.quantity).toFixed(2) }} $</div>
 		</div>
-		<button class="button button--delete">Delete</button>
 	</div>
 </template>
 
 <script>
-import store from '../store/index'
+import { useStore } from 'vuex'
 import { computed } from 'vue'
 
 export default {
@@ -26,17 +27,24 @@ export default {
 		product: Object
 	},
 	setup(props) {
+		const store = useStore()
 		const cartItems = computed(() => store.getters.getCartItems)
 
 		function updateQuantity(quantity) {
-			if (quantity === 0) {
-				store.commit('UPDATE_CART_ITEMS', cartItems.value.filter((item) => item.id !== props.product.id))
-			} else {
+			if (quantity === 0) deleteItem()
+			else {
 				const updatedCartItems = cartItems.value.map((item) => (item.id !== props.product.id ? item : { ...props.product, quantity }))
 				store.commit('UPDATE_CART_ITEMS', updatedCartItems)
 			}
 		}
-		return { updateQuantity }
+
+		function deleteItem() {
+			store.commit(
+				'UPDATE_CART_ITEMS',
+				cartItems.value.filter((item) => item.id !== props.product.id)
+			)
+		}
+		return { updateQuantity, deleteItem }
 	}
 }
 </script>
@@ -47,17 +55,32 @@ export default {
 	padding: 1.5rem 1rem;
 	width: 100%;
 	border-bottom: 0.0625rem solid rgb(226, 226, 226);
+	user-select: none;
 }
 
 .title {
+	text-align: left;
 	font-size: 1.15rem;
 	font-weight: bold;
+	width: 100%;
+}
+
+.details {
+	margin: 1.5rem 0;
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.quantity {
+	border: 0.0625rem solid grey;
+	padding: 0.5rem;
 }
 
 .price {
 	font-size: 1.15rem;
 	font-weight: bold;
-	margin: 0 0.5rem;
 }
 
 img {
@@ -65,24 +88,15 @@ img {
 	height: 6rem;
 }
 
-.info {
-	width: 60%;
+.wrapper {
+	width: 100%;
 	margin: 0 2rem;
 }
 
-.productDescription {
-	width: 100%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	margin-top: 1rem;
-}
-
-.button--delete {
-	background: rgb(202, 60, 60);
-}
-
-.mdi:hover {
-	cursor: pointer;
+.mdi-minus,
+.mdi-plus {
+	&:hover {
+		cursor: pointer;
+	}
 }
 </style>

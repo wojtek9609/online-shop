@@ -1,10 +1,11 @@
 <template>
-	<button class="button" @click="addItemToCart">Add to Cart</button>
+	<button class="button" :disabled="notify" @click="addItemToCart">Add to Cart</button>
+	<div v-if="notify" class="message">Product added sucessfully !</div>
 </template>
 
 <script>
-import { computed } from 'vue'
-import store from '../store/index'
+import { computed, ref, watch } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
 	name: 'AddToCartButton',
@@ -12,7 +13,9 @@ export default {
 		product: Object
 	},
 	setup(props) {
+		const store = useStore()
 		const cartItems = computed(() => store.getters.getCartItems)
+		const notify = ref(false)
 
 		function addItemToCart() {
 			if (cartItems.value.find((item) => item.id === props.product.id)) {
@@ -21,11 +24,27 @@ export default {
 				)
 				store.commit('UPDATE_CART_ITEMS', updatedCartItems)
 			} else store.commit('UPDATE_CART_ITEMS', [...cartItems.value, { ...props.product, quantity: 1 }])
+			notify.value = true
 		}
 
-		return { addItemToCart }
+		watch(notify, (curr) => {
+			if (curr) setTimeout(() => (notify.value = false), 2000)
+		})
+
+		return { addItemToCart, notify }
 	}
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+button:disabled {
+	cursor: not-allowed;
+	pointer-events: all !important;
+	opacity: 0.5;
+}
+
+.message {
+	margin: 0.75rem 0;
+	color: green;
+}
+</style>

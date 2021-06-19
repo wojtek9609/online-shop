@@ -1,5 +1,5 @@
 <template>
-	<div class="categories">
+	<div v-if="categories.length > 0" class="categories">
 		<div
 			:class="['category', { active: activeCategories.includes(category) }]"
 			v-for="category in categories"
@@ -14,7 +14,7 @@
 
 <script>
 import { ref, computed, watch } from 'vue'
-import store from '../store/index'
+import { useStore } from 'vuex'
 
 export default {
 	name: 'ProductCategories',
@@ -23,6 +23,7 @@ export default {
 	},
 	emits: ['update:modelValue'],
 	setup(props, { emit }) {
+		const store = useStore()
 		const categories = computed(() => store.getters.getProductCategories)
 		const activeCategories = ref(props.modelValue)
 

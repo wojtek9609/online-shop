@@ -1,22 +1,28 @@
 <template>
 	<div id="nav">
 		<router-link to="/">Shop</router-link>
-		<router-link to="/cart">Cart</router-link>
+		<router-link to="/cart">Cart ({{ totalItems }})</router-link>
 	</div>
 	<router-view />
 </template>
 
 <script>
-import store from './store/index'
+import { useStore } from 'vuex'
+import { computed } from 'vue'
 
 export default {
 	setup() {
+		const store = useStore()
+		const totalItems = computed(() => store.getters.getItemsCount)
+
 		async function init() {
 			await store.dispatch('getProducts', 20)
 			await store.dispatch('getProductCategories')
 		}
 
 		init()
+
+		return { totalItems }
 	}
 }
 </script>
@@ -32,10 +38,11 @@ export default {
 
 #nav {
 	padding: 30px;
-
+	font-size: 1.25rem;
 	a {
 		font-weight: bold;
 		color: #2c3e50;
+		margin: 1rem;
 
 		&.router-link-exact-active {
 			color: #42b983;
@@ -52,9 +59,17 @@ export default {
 	background: rgb(66, 184, 221);
 	border-color: transparent;
 
-	&:hover{
+	&:hover {
 		cursor: pointer;
-		opacity: 0.75;
+		opacity: 0.85;
+	}
+
+	&.button--red {
+		background: rgb(202, 60, 60);
+	}
+
+	&.button--green {
+		background: rgb(28, 184, 65);
 	}
 }
 </style>

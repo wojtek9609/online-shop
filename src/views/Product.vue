@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import store from '../store/index'
+import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import AddToCartButton from '../components/AddToCartButton.vue'
@@ -21,6 +21,7 @@ export default {
 		AddToCartButton
 	},
 	setup() {
+		const store = useStore()
 		const route = useRoute()
 		const product = computed(() => store.getters.getProductById(parseInt(route.params.id)))
 

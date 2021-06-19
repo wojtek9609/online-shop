@@ -41,8 +41,7 @@ export default createStore({
 		getProductById: (state) => (id) => state.products.find((product) => product.id === id),
 		getProductCategories: (state) => state.productCategories,
 		getCartItems: (state) => state.cartItems,
-		getTotalPrice: (state) => state.cartItems.reduce((total, item) => item.quantity * item.price + total, 0).toFixed(2)
+		getTotalPrice: (state) => state.cartItems.reduce((total, item) => item.quantity * item.price + total, 0).toFixed(2),
+		getItemsCount: (state) => state.cartItems.reduce((total, item) => item.quantity + total, 0)
 	}
 })
-
-
