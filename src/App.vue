@@ -1,7 +1,10 @@
 <template>
 	<div id="nav">
 		<router-link to="/">Shop</router-link>
-		<router-link to="/cart">Cart ({{ totalItems }})</router-link>
+		<router-link to="/cart"
+			>Cart
+			<span v-if="totalItems > 0">({{ totalItems }})</span>
+		</router-link>
 	</div>
 	<router-view />
 </template>
@@ -28,24 +31,39 @@ export default {
 </script>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Arvo&family=Montserrat:wght@400;600;800&display=swap');
+
 #app {
 	font-family: Avenir, Helvetica, Arial, sans-serif;
+	font-family: 'Montserrat', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
 }
 
+body {
+	margin: 0;
+}
+
 #nav {
-	padding: 30px;
+	padding: 1.5rem;
 	font-size: 1.25rem;
+	background-color: rgb(238, 255, 224);
+	box-shadow: 0 4px 5px -2px gray;
+
 	a {
 		font-weight: bold;
 		color: #2c3e50;
 		margin: 1rem;
+		text-decoration: none;
 
 		&.router-link-exact-active {
-			color: #42b983;
+			border-bottom: 0.125rem solid #42b983;
+		}
+
+		&:hover {
+			border-bottom: 0.125rem solid #42b983;
 		}
 	}
 }

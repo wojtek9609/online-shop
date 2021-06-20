@@ -1,9 +1,8 @@
 <template>
 	<div class="product" v-if="product">
-		<img class="productImage" :src="product.image" alt="productImage" />
+		<img :src="product.image" alt="productImage" />
 		<div class="title">{{ product.title }}</div>
 		<div class="price">{{ product.price }} $</div>
-		Description:
 		<div class="description">{{ product.description }}</div>
 		<AddToCartButton :product="product" />
 	</div>
@@ -32,13 +31,16 @@ export default {
 
 <style lang="scss" scoped>
 .product {
-	width: 80%;
-	margin: auto;
+	width: 40%;
+	margin: 1.5rem auto;
 	padding: 1.5rem;
 	border: 0.0625rem solid rgb(226, 226, 226);
+	background-color: azure;
+	border-radius: 5px;
+	box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.3);
 }
 
-img.productImage {
+img {
 	width: 10rem;
 	height: 10rem;
 }

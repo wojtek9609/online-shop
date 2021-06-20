@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper">
 		<div class="cartItems">
-			<ProductInCartBox v-for="product in cartItems" :key="product.id" :product="product" />
+			<ProductBox v-for="product in cartItems" :key="product.id" :product="product" />
 		</div>
 	</div>
 	<div v-if="cartItems.length === 0" class="message">
@@ -17,11 +17,11 @@
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import ProductInCartBox from '../components/ProductInCartBox.vue'
+import ProductBox from '../components/ProductBox.vue'
 
 export default {
 	components: {
-		ProductInCartBox
+		ProductBox
 	},
 	setup() {
 		const store = useStore()

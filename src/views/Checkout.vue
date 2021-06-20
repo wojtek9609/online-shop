@@ -6,11 +6,11 @@
 		</div>
 		<div class="item" v-for="item in cartItems" :key="item.id">
 			<div class="itemInfo">{{ item.quantity }}x {{ item.title }}</div>
-			<div class="totalItemPrice">{{ (item.quantity * item.price).toFixed(2) }} $</div>
+			<div class="price">{{ (item.quantity * item.price).toFixed(2) }} $</div>
 		</div>
 		<div class="subtotal">
-			<span>Subtotal:</span>
-			<span>{{ totalPrice }}$</span>
+			Subtotal:
+			<div class="price">{{ subtotalPrice }}$</div>
 		</div>
 		<form class="billingDetails" @submit.prevent="finalizeTransaction">
 			<div class="header">Billing details</div>
@@ -24,37 +24,49 @@
 			</div>
 			<div class="shipping">
 				Shipping:
-				<div class="input--radio">
+				<div class="input input--radio">
 					<input type="radio" id="free" value="0" v-model="shipping" />
 					<label for="free">Free shipping 0.00 $</label>
 				</div>
-				<div class="input--radio">
+				<div class="input input--radio">
 					<input type="radio" id="standard" value="10" v-model="shipping" />
 					<label for="standard">Standard 10.00 $</label>
 				</div>
-				<div class="input--radio">
+				<div class="input input--radio">
 					<input type="radio" id="express" value="25" v-model="shipping" />
 					<label for="express">Express 25.00 $</label>
 				</div>
 			</div>
+			<div class="total">
+				Total:
+				<div class="price">{{ totalPrice }} $</div>
+			</div>
 			<p>By clicking the button you accept the <strong> Terms and contitions </strong>.</p>
-			<button class="button button--green">Place order</button>
+			<button type="submit" class="button button--green">Place order</button>
 		</form>
 	</div>
 </template>
 
 <script>
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import { computed, ref } from 'vue'
 
 export default {
 	setup() {
 		const store = useStore()
+		const router = useRouter()
 		const cartItems = computed(() => store.getters.getCartItems)
-		const totalPrice = computed(() => store.getters.getTotalPrice)
+		const subtotalPrice = computed(() => store.getters.getTotalPrice)
+		const totalPrice = computed(() => (parseFloat(shipping.value) + parseFloat(subtotalPrice.value)).toFixed(2))
 		const shipping = ref(0)
 
-		return { cartItems, totalPrice, shipping }
+		function finalizeTransaction() {
+			store.commit('UPDATE_CART_ITEMS', [])
+			router.push({ path: `/thank-you` })
+		}
+
+		return { cartItems, subtotalPrice, shipping, totalPrice, finalizeTransaction }
 	}
 }
 </script>
@@ -63,7 +75,7 @@ export default {
 $border-default: solid 0.125px rgb(214, 214, 214);
 .checkout {
 	width: 35rem;
-	margin: auto;
+	margin: 1.5rem auto;
 	padding: 1.5rem;
 	border: $border-default;
 }
@@ -83,6 +95,7 @@ $border-default: solid 0.125px rgb(214, 214, 214);
 	font-weight: bold;
 }
 
+.total,
 .subtotal {
 	padding: 1.5rem 0;
 	display: flex;
@@ -90,12 +103,16 @@ $border-default: solid 0.125px rgb(214, 214, 214);
 	border-bottom: $border-default;
 }
 
+.total {
+	font-weight: bold;
+}
+
 .itemInfo {
 	margin: 0 0.5rem;
 	text-align: left;
 }
 
-.totalItemPrice {
+.price {
 	min-width: 6rem;
 }
 

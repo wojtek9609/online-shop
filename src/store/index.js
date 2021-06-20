@@ -22,7 +22,10 @@ export default createStore({
 		async getProducts({ commit }, limit) {
 			try {
 				const { data } = await axios.get('https://fakestoreapi.com/products', { params: { limit } })
-				commit('UPDATE_PRODUCTS', data)
+				const parsedProducts = data.map((product) => {
+					return { ...product, price: parseFloat(product.price).toFixed(2) }
+				})
+				commit('UPDATE_PRODUCTS', parsedProducts)
 			} catch (e) {
 				console.warn(e)
 			}
