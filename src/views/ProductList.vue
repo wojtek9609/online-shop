@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper">
-		<ProductCategories v-model="activeCategories" />
-		<div class="productsList">
+		<div v-if="filteredProducts.length > 0" class="productsList">
+			<ProductCategories v-model="activeCategories" />
 			<div class="product" v-for="product in filteredProducts" :key="product.id" @click="$router.push({ path: `/product/${product.id}` })">
 				<div class="productImage">
 					<img :src="product.image" alt="productImage" />
@@ -9,9 +9,12 @@
 				<div class="info">
 					<div class="title">{{ product.title }}</div>
 					<div class="price">{{ product.price }} $</div>
-					<button class="button">More</button>
+					<button class="button moreButton">More</button>
 				</div>
 			</div>
+		</div>
+		<div v-else class="noProductsMessage">
+			Sorry there are no products to display. Sorry for the inconvenience.
 		</div>
 	</div>
 </template>
@@ -39,31 +42,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrapper{
+.wrapper {
 	padding: 1rem;
 }
 
 .productsList {
-	width: 80rem;
+	width: 72rem;
 	margin: auto;
 	display: flex;
 	flex-wrap: wrap;
+	@media screen and (max-width: 1200px) {
+		width: 100%;
+	}
 }
 
 .product {
-	width: 36rem;
-	margin: 1rem;
+	width: 32.5rem;
+	margin: 0.75rem;
 	display: flex;
 	justify-content: left;
 	padding: 1.5rem 1rem;
 	border-bottom: 0.0625rem solid rgb(226, 226, 226);
-	border-radius: 5px;
-	background-color: azure;
+	border-radius: 0.125rem;
 	box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.3);
+
+	@media screen and (max-width: 1200px) {
+		width: 100%;
+	}
 
 	&:hover {
 		cursor: pointer;
-		background-color: rgb(231, 231, 231);
+		background-color: rgb(243, 243, 243);
 	}
 }
 
@@ -78,7 +87,10 @@ export default {
 }
 
 .title {
+	width: 100%;
 	text-align: left;
+	padding-bottom: 0.75rem;
+	border-bottom: 0.125rem solid rgb(156, 156, 156);
 }
 
 .productImage {
@@ -90,9 +102,24 @@ export default {
 }
 
 .info {
+	width: 100%;
 	margin-left: 2rem;
 	display: flex;
 	flex-direction: column;
 	align-items: baseline;
+}
+
+.noProductsMessage {
+	font-size: 1.25rem;
+	font-weight: 600;
+	text-align: center;
+}
+
+.moreButton {
+	margin-top: auto;
+
+	@media screen and (max-width: 1200px) {
+		margin: auto 0 0 auto;
+	}
 }
 </style>

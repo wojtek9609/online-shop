@@ -47,11 +47,13 @@ export default {
 .categories {
 	display: flex;
 	justify-content: center;
-	margin: 1rem;
+	flex-wrap: wrap;
+	margin: 1rem 0;
+	width: 100%;
 }
 
 .category {
-	margin: 0 1rem;
+	margin: 0 1rem 1rem 1rem;
 	border-radius: 1rem;
 	border: 0.125rem solid #43a047;
 	padding: 0.25rem 0.5rem;
@@ -59,6 +61,7 @@ export default {
 	&:hover {
 		cursor: pointer;
 		user-select: none;
+		background-color: #e5fae6;
 	}
 
 	&.active {
@@ -68,6 +71,7 @@ export default {
 }
 
 .mdi-close {
+	margin: 0 1rem 1rem 1rem;
 	align-items: center;
 	display: flex;
 

@@ -1,8 +1,8 @@
 <template>
-	<h4>
+	<div class="message">
 		Thank You for your purchase !<br />
-		You will be redirected to our shop main page in few seconds...
-	</h4>
+		You will be redirected to our shop main page within a few seconds...
+	</div>
 </template>
 
 <script>
@@ -16,10 +16,17 @@ export default {
 		onMounted(() => {
 			setTimeout(() => {
 				router.push({ path: `/` })
-			}, 5000)
+			}, 6000)
 		})
 	}
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.message {
+	font-size: 1.25rem;
+	font-weight: bold;
+	margin: 1.5rem 0;
+	text-align: center;
+}
+</style>

@@ -3,7 +3,7 @@
 		<div class="productImage">
 			<img :src="product.image" alt="productImage" />
 		</div>
-		<div class="wrapper">
+		<div class="detailsWrapper">
 			<div class="title">{{ product.title }}</div>
 			<div class="details">
 				<div class="price">{{ product.price }} $</div>
@@ -62,44 +62,6 @@ export default {
 	user-select: none;
 }
 
-.title {
-	text-align: left;
-	font-size: 1.15rem;
-	font-weight: bold;
-	width: 100%;
-}
-.price,
-.totalPrice {
-	min-width: 7rem;
-	text-align: left;
-}
-
-.details {
-	margin: 1.5rem 0;
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.quantity {
-	border: 0.0625rem solid grey;
-	padding: 0.5rem;
-	display: flex;
-	justify-content: space-between;
-	min-width: 5rem;
-}
-
-.itemCount {
-	margin: 0 0.5rem;
-	text-align: center;
-}
-
-.price {
-	font-size: 1.15rem;
-	font-weight: bold;
-}
-
 .productImage {
 	min-width: 6rem;
 	img {
@@ -108,15 +70,72 @@ export default {
 	}
 }
 
-.wrapper {
+.detailsWrapper {
 	width: 100%;
 	margin: 0 2rem;
 }
 
-.mdi-minus,
-.mdi-plus {
-	&:hover {
-		cursor: pointer;
+.title {
+	font-size: 1.15rem;
+	font-weight: bold;
+	width: 100%;
+}
+
+.details {
+	margin: 1.5rem 0;
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+
+	@media screen and (max-width: 480px) {
+		flex-wrap: wrap;
+		justify-content: unset;
+	}
+
+	& > * {
+		@media screen and (max-width: 480px) {
+			margin: 1rem 1rem 0 0;
+		}
+	}
+}
+
+.price,
+.totalPrice {
+	min-width: 7rem;
+}
+
+.price {
+	font-size: 1.15rem;
+	font-weight: bold;
+}
+
+.quantity {
+	border: 0.0625rem solid grey;
+	padding: 0.5rem;
+	display: flex;
+	justify-content: space-between;
+	min-width: 5rem;
+
+	.mdi-minus,
+	.mdi-plus {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
+
+.itemCount {
+	margin: 0 0.5rem;
+	text-align: center;
+}
+
+.totalPrice {
+	@media screen and (max-width: 768px) {
+		text-align: center;
+	}
+	@media screen and (max-width: 480px) {
+		text-align: left;
 	}
 }
 </style>

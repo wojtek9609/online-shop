@@ -1,16 +1,16 @@
 <template>
 	<div class="wrapper">
-		<div class="cartItems">
-			<ProductBox v-for="product in cartItems" :key="product.id" :product="product" />
+		<div v-if="cartItems.length > 0">
+			<div class="cartItems">
+				<ProductBox v-for="product in cartItems" :key="product.id" :product="product" />
+			</div>
+			<div class="bottomElements">
+				<button class="button" @click="$router.push({ path: '/' })">Back to shop</button>
+				<div class="price">Total: {{ totalPrice }} $</div>
+				<button class="button button--green" @click="$router.push({ path: '/checkout' })">Proceed to checkout</button>
+			</div>
 		</div>
-	</div>
-	<div v-if="cartItems.length === 0" class="message">
-		There are no items in the cart. Click <router-link to="/">here</router-link> to go back to the shop.<br />
-	</div>
-	<div v-else class="wrapper wrapper--bottom">
-		<button class="button" @click="$router.push({ path: '/' })">Back to shop</button>
-		<div class="price">Total: {{ totalPrice }} $</div>
-		<button class="button button--green" @click="$router.push({ path: '/checkout' })">Proceed to checkout</button>
+		<div v-else class="message">There are no items in the cart. Click <router-link to="/">here</router-link> to go back to the shop.<br /></div>
 	</div>
 </template>
 
@@ -35,24 +35,39 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
-	width: 50%;
-	display: flex;
-	margin: auto;
-
-	&.wrapper--bottom {
-		justify-content: space-between;
-		align-items: center;
-		margin-top: 1rem;
-		padding: 1.5rem 1rem;
-	}
+	margin: 0 auto;
+	padding: 1.5rem;
 }
 
 .cartItems {
-	width: 100%;
+	width: 46rem;
+	display: flex;
+	flex-wrap: wrap;
+	margin: 1.5rem auto;
+
+	@media screen and (max-width: 768px) {
+		width: unset;
+	}
+}
+
+.bottomElements {
+	width: 46rem;
+	margin: 2rem auto 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	@media screen and (max-width: 768px) {
+		width: unset;
+	}
 }
 
 .price {
 	font-size: 1.15rem;
 	font-weight: bold;
+}
+
+.message {
+	text-align: center;
 }
 </style>

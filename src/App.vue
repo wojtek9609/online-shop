@@ -33,24 +33,32 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Arvo&family=Montserrat:wght@400;600;800&display=swap');
 
-#app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
-	font-family: 'Montserrat', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #2c3e50;
+html {
+	width: 100%;
+	font-size: 16px;
+	@media screen and (max-width: 768px) {
+		font-size: 12px;
+	}
 }
 
 body {
+	width: 100%;
 	margin: 0;
+}
+
+#app {
+	font-family: 'Montserrat', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: #2c3e50;
 }
 
 #nav {
 	padding: 1.5rem;
 	font-size: 1.25rem;
-	background-color: rgb(238, 255, 224);
+	background-color: rgb(247, 251, 243);
 	box-shadow: 0 4px 5px -2px gray;
+	text-align: center;
 
 	a {
 		font-weight: bold;
@@ -72,9 +80,8 @@ body {
 	color: white;
 	border-radius: 0.25rem;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-	height: 2rem;
 	padding: 0.5rem 0.75rem;
-	background: rgb(66, 184, 221);
+	background-color: rgb(66, 184, 221);
 	border-color: transparent;
 
 	&:hover {
@@ -82,12 +89,18 @@ body {
 		opacity: 0.85;
 	}
 
+	&:disabled {
+		cursor: not-allowed;
+		pointer-events: all !important;
+		opacity: 0.5;
+	}
+
 	&.button--red {
-		background: rgb(202, 60, 60);
+		background-color: rgb(202, 60, 60);
 	}
 
 	&.button--green {
-		background: rgb(28, 184, 65);
+		background-color: rgb(28, 184, 65);
 	}
 }
 </style>
