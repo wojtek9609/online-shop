@@ -7,7 +7,7 @@
 			<div class="bottomElements">
 				<button class="button" @click="$router.push({ path: '/' })">Back to shop</button>
 				<div class="price">Total: {{ totalPrice }} $</div>
-				<button class="button button--green" @click="$router.push({ path: '/checkout' })">Proceed to checkout</button>
+				<button class="button button--green" @click="$router.push({ path: '/checkout' })">Checkout</button>
 			</div>
 		</div>
 		<div v-else class="message">There are no items in the cart. Click <router-link to="/">here</router-link> to go back to the shop.<br /></div>
@@ -56,9 +56,12 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	flex-wrap: wrap;
 
 	@media screen and (max-width: 768px) {
 		width: unset;
+	}
+	@media screen and (max-width: 480px) {
 	}
 }
 

@@ -56,7 +56,7 @@ export default {
 <style lang="scss" scoped>
 .product {
 	display: flex;
-	padding: 1.5rem 1rem;
+	padding: 1.5rem 0;
 	width: 100%;
 	border-bottom: 0.0625rem solid rgb(226, 226, 226);
 	user-select: none;
@@ -72,7 +72,7 @@ export default {
 
 .detailsWrapper {
 	width: 100%;
-	margin: 0 2rem;
+	margin-left: 2rem;
 }
 
 .title {
@@ -91,23 +91,17 @@ export default {
 	@media screen and (max-width: 480px) {
 		flex-wrap: wrap;
 		justify-content: unset;
-	}
+		margin: 1rem 0;
 
-	& > * {
-		@media screen and (max-width: 480px) {
-			margin: 1rem 1rem 0 0;
+		& > * {
+			margin: 1rem 1.5rem 0 0;
 		}
 	}
 }
 
-.price,
-.totalPrice {
-	min-width: 7rem;
-}
-
 .price {
-	font-size: 1.15rem;
-	font-weight: bold;
+	font-size: 1.1rem;
+	min-width: 6rem;
 }
 
 .quantity {
@@ -131,6 +125,10 @@ export default {
 }
 
 .totalPrice {
+	font-size: 1.1rem;
+	min-width: 7rem;
+	font-weight: bold;
+
 	@media screen and (max-width: 768px) {
 		text-align: center;
 	}

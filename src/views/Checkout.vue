@@ -105,6 +105,11 @@ $border-default: solid 0.125px rgb(214, 214, 214);
 	padding: 1.5rem;
 	border: $border-default;
 	text-align: center;
+
+	@media screen and (max-width: 480px) {
+		width: unset;
+		margin: 1.5rem;
+	}
 }
 
 .item {
@@ -137,6 +142,7 @@ $border-default: solid 0.125px rgb(214, 214, 214);
 
 .itemDetails {
 	margin: 0 0.5rem;
+	text-align: left;
 }
 
 .price {
