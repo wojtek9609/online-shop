@@ -25,7 +25,7 @@ export default {
 		const notify = ref(false)
 
 		function addItemToCart() {
-			if (cartItems.value.find((item) => item.id === product.value.id)) {
+			if (cartItems.value.some((item) => item.id === product.value.id)) {
 				const updatedCartItems = cartItems.value.map((item) =>
 					item.id !== product.value.id ? item : { ...product.value, quantity: item.quantity + 1 }
 				)
@@ -48,14 +48,14 @@ export default {
 	width: 42rem;
 	margin: 1.5rem auto;
 	padding: 1.5rem;
+	text-align: center;
 	border: 0.0625rem solid rgb(226, 226, 226);
 	border-radius: 0.125rem;
 	box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.3);
-	text-align: center;
 
 	@media screen and (max-width: 768px) {
-		margin: 1.5rem;
 		width: unset;
+		margin: 1.5rem;
 	}
 }
 
@@ -65,18 +65,18 @@ img {
 }
 
 .title {
+	margin: 2rem 0;
 	font-size: 1.75rem;
 	font-weight: bold;
-	margin: 2rem 0;
 }
 
 .price {
-	font-size: 2rem;
-	font-weight: bold;
 	margin-bottom: 2rem;
 	padding: 1.5rem 0;
 	border-top: 0.0625rem solid rgb(226, 226, 226);
 	border-bottom: 0.0625rem solid rgb(226, 226, 226);
+	font-size: 2rem;
+	font-weight: bold;
 }
 
 .description {

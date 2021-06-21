@@ -40,9 +40,9 @@ export default {
 }
 
 .cartItems {
-	width: 46rem;
 	display: flex;
 	flex-wrap: wrap;
+	width: 46rem;
 	margin: 1.5rem auto;
 
 	@media screen and (max-width: 768px) {
@@ -51,12 +51,12 @@ export default {
 }
 
 .bottomElements {
-	width: 46rem;
-	margin: 2rem auto 1rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
+	width: 46rem;
+	margin: 2rem auto 1rem;
 
 	@media screen and (max-width: 768px) {
 		width: unset;

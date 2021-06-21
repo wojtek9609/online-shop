@@ -5,28 +5,24 @@
 			<mdicon name="cart" />
 		</div>
 		<div class="item" v-for="item in cartItems" :key="item.id">
-			<div class="itemDetails">{{ item.quantity }}x {{ item.title }}</div>
+			<div class="details">{{ item.quantity }}x {{ item.title }}</div>
 			<div class="price">{{ (item.quantity * item.price).toFixed(2) }} $</div>
 		</div>
 		<div class="subtotal">
 			Subtotal:
 			<div class="price">{{ subtotalPrice }}$</div>
 		</div>
-		<form class="billingDetails" @submit.prevent="finalizeTransaction">
+		<form class="billing" @submit.prevent="finalizeTransaction">
 			<div class="header">Billing details</div>
 			<div class="input">
 				<label for="name">Name</label>
 				<input type="text" v-model="userName" />
-				<div class="error">
-					{{ userNameErrors }}
-				</div>
+				<div class="error">{{ userNameErrors }}</div>
 			</div>
 			<div class="input">
 				<label for="email">Email</label>
 				<input type="email" v-model="email" />
-				<div class="error">
-					{{ emailErrors }}
-				</div>
+				<div class="error">{{ emailErrors }}</div>
 			</div>
 			<div class="shipping">
 				Shipping:
@@ -88,7 +84,7 @@ export default {
 
 		function finalizeTransaction() {
 			store.commit('UPDATE_CART_ITEMS', [])
-			router.push({ path: `/thank-you` })
+			router.push({ path: '/thank-you' })
 		}
 
 		return { cartItems, subtotalPrice, shipping, totalPrice, finalizeTransaction, email, userName, userNameErrors, emailErrors }
@@ -130,9 +126,9 @@ $border-default: solid 0.125px rgb(214, 214, 214);
 
 .total,
 .subtotal {
-	padding: 1.5rem 0;
 	display: flex;
 	justify-content: space-between;
+	padding: 1.5rem 0;
 	border-bottom: $border-default;
 }
 
@@ -140,7 +136,7 @@ $border-default: solid 0.125px rgb(214, 214, 214);
 	font-weight: bold;
 }
 
-.itemDetails {
+.details {
 	margin: 0 0.5rem;
 	text-align: left;
 }
@@ -149,7 +145,7 @@ $border-default: solid 0.125px rgb(214, 214, 214);
 	min-width: 6rem;
 }
 
-.billingDetails {
+.billing {
 	margin-top: 1.5rem;
 }
 
@@ -167,10 +163,10 @@ label {
 	margin: 1.25rem 0;
 
 	input {
-		border-radius: 0;
-		border: 0.0625rem solid rgb(214, 214, 214);
-		font-size: 1.05rem;
 		padding: 0.35rem;
+		border: 0.0625rem solid rgb(214, 214, 214);
+		border-radius: 0;
+		font-size: 1.05rem;
 
 		&:focus {
 			outline: none;

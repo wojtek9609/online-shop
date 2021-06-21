@@ -4,7 +4,7 @@
 			:class="['category', { active: activeCategories.includes(category) }]"
 			v-for="category in categories"
 			:key="category"
-			@click="updateCategories(category)"
+			@click="update(category)"
 		>
 			{{ category }}
 		</div>
@@ -27,7 +27,7 @@ export default {
 		const categories = computed(() => store.getters.getProductCategories)
 		const activeCategories = ref(props.modelValue)
 
-		function updateCategories(category) {
+		function update(category) {
 			activeCategories.value = activeCategories.value.includes(category)
 				? activeCategories.value.filter((el) => el !== category)
 				: [...activeCategories.value, category]
@@ -39,7 +39,7 @@ export default {
 
 		watch(activeCategories, (curr) => emit('update:modelValue', curr))
 
-		return { categories, activeCategories, updateCategories, clear }
+		return { categories, activeCategories, update, clear }
 	}
 }
 </script>

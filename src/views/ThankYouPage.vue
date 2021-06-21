@@ -24,9 +24,9 @@ export default {
 
 <style lang="scss" scoped>
 .message {
+	margin: 1.5rem;
+	text-align: center;
 	font-size: 1.25rem;
 	font-weight: bold;
-	margin: 1.5rem 0;
-	text-align: center;
 }
 </style>

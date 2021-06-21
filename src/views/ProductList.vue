@@ -6,7 +6,7 @@
 				<div class="productImage">
 					<img :src="product.image" alt="productImage" />
 				</div>
-				<div class="info">
+				<div class="details">
 					<div class="title">{{ product.title }}</div>
 					<div class="price">{{ product.price }} $</div>
 					<button class="button moreButton">More</button>
@@ -47,20 +47,20 @@ export default {
 }
 
 .productsList {
-	width: 72rem;
-	margin: auto;
 	display: flex;
 	flex-wrap: wrap;
+	width: 72rem;
+	margin: auto;
 	@media screen and (max-width: 1200px) {
 		width: 100%;
 	}
 }
 
 .product {
-	width: 32.5rem;
-	margin: 0.75rem;
 	display: flex;
 	justify-content: left;
+	width: 32.5rem;
+	margin: 0.75rem;
 	padding: 1.5rem 1rem;
 	border-bottom: 0.0625rem solid rgb(226, 226, 226);
 	border-radius: 0.125rem;
@@ -76,12 +76,6 @@ export default {
 	}
 }
 
-.title,
-.price {
-	font-size: 1.15rem;
-	font-weight: bold;
-}
-
 .price {
 	margin: 0.75rem 0;
 }
@@ -93,6 +87,12 @@ export default {
 	border-bottom: 0.125rem solid rgb(156, 156, 156);
 }
 
+.title,
+.price {
+	font-size: 1.15rem;
+	font-weight: bold;
+}
+
 .productImage {
 	min-width: 6rem;
 	img {
@@ -101,7 +101,7 @@ export default {
 	}
 }
 
-.info {
+.details {
 	width: 100%;
 	margin-left: 2rem;
 	display: flex;
